@@ -1,5 +1,5 @@
 import numpy as np
-from markovchain import Chain
+from src.markovchain import Chain
 
 
 class IFS:

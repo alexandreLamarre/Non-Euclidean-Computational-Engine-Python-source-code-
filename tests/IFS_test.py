@@ -1,6 +1,6 @@
-from IFS import IFS
-from markovchain import Chain
-from render_tools import render_points_to_array
+from src.IFS import IFS
+from src.markovchain import Chain
+from src.render_tools import render_points_to_array
 import numpy as np
 import matplotlib.pylab as plt
 import os

@@ -1,6 +1,6 @@
-from interpreter import n_interpret
-from interpreter import euclidean_interpret
-from interpreter import computable
+from src.interpreter import n_interpret
+from src.interpreter import euclidean_interpret
+from src.interpreter import computable
 import numpy as np
 import os
 

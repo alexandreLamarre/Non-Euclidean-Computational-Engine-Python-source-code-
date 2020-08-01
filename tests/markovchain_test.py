@@ -1,4 +1,4 @@
-from markovchain import Chain
+from src.markovchain import Chain
 
 if __name__ == "__main__":
     states = ["a", "b" , "c"]
