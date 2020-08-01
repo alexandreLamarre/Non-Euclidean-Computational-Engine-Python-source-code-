@@ -1,21 +1,19 @@
-import matplotlib.pylab as plt
 import numpy as np
-import pdb
 from markovchain import Chain
-from render_tools import render_points_to_array
 
-class IFS():
+
+class IFS:
     """ Object representing a set of Iterated functions used to generate fractals """
     def __init__(self, funcs, transitions, start_func):
         """ Initialize an IFS from a list of python functions and a list of transitions"""
-        assert(len(funcs) == len(transitions)),"number of functions and transitions are mismathced"
+        assert(len(funcs) == len(transitions)), "number of functions and transitions are mismatched"
         self.funcs = funcs
         # Create a markov chain from these Iterated functions used to generate fractals
-        self.chain = Chain(funcs,transitions)
+        self.chain = Chain(funcs, transitions)
 
         self.start = start_func
 
-    def apply(self,point, funcs):
+    def apply(self, point, funcs):
         for f in funcs:
             point = f(point)
 

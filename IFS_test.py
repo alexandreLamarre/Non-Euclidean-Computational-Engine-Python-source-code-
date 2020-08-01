@@ -46,6 +46,7 @@ if __name__ == "__main__":
     Barnsley_fern = IFS(funcs, transitions,start_state)
     end_time_init = os.times()[0]
     print("Initializing an IFS with functions took: {} seconds.".format(end_time_init- start_time_init))
+    
     fig,ax = plt.subplots()
     extent = [-4,4,0,9]
     # breakpoint()

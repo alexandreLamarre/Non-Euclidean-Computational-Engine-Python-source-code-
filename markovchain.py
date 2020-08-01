@@ -2,14 +2,15 @@ import numpy as np
 """ Implementation of a Markov chain using states (which can be numbers, strings or
     even functions)"""
 
-class Chain():
-    "Object representing a stochastic markov chain"
+
+class Chain:
+    """Object representing a stochastic markov chain"""
     def __init__(self, states, transitions):
         """ Initialize a markov chain with a list of states and list of list of
         transitions"""
 
         assert(len(states) == len(transitions)), \
-                        "number of states and transitions do not match"
+            "number of states and transitions do not match"
 
         self._states = states
         markov_chain = list(zip(states, transitions))
@@ -34,11 +35,11 @@ class Chain():
         previous = 0
 
         for i in range(len(next_states)):
-            if(random_num <= previous + next_states[i]):
+            if random_num <= previous + next_states[i]:
                 return i
             previous += next_states[i]
 
-        #Error case
+        # Error case
         return None
 
     def step(self, start_state):
@@ -50,8 +51,7 @@ class Chain():
 
     def n_orbit(self, start_state, n=10):
         """ Returns a numpy array of a list of states"""
-        res = []
-        res.append(start_state)
+        res = [start_state]
         next_state = self.step(start_state)
 
         for i in range(n):
