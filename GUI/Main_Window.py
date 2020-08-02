@@ -1,6 +1,6 @@
 import tkinter as tk
 from tkinter import ttk
-from GUI.IFS_Pages import IFSPage1
+from GUI.IFS_Pages import IFSPage3d
 from GUI.IFS_Pages import IFSPage2
 
 class Main_Window(tk.Tk):
@@ -22,7 +22,7 @@ class Main_Window(tk.Tk):
 
     def display_IFS_3D(self):
         self.clear_window()
-        p = IFSPage1(self)
+        p = IFSPage3d(self)
         self.add_to_window(p)
         p.grid(row = 0, column = 0)
 
