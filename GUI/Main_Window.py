@@ -1,17 +1,38 @@
 import tkinter as tk
 from tkinter import ttk
+from GUI.IFS_Pages import IFSPage1
+from GUI.IFS_Pages import IFSPage2
 
 class Main_Window(tk.Tk):
     def __init__(self):
         super(Main_Window, self).__init__()
         self.title("NE Computational Engine")
         self.minsize(1000, 600)
-
+        self.pages = []
         self.create_menu()
 
-    def process_new(self):
-        self.label = ttk.Label(self, text="Tkinter Application")
-        self.label.grid(row = 0, column = 0)
+    def clear_window(self):
+        """ Clears windows of displayed Frames"""
+        for p in self.pages:
+            p.destroy()
+
+    def add_to_window(self, p):
+        """ Adds information/ frames to the window"""
+        self.pages.append(p)
+
+    def display_IFS_3D(self):
+        self.clear_window()
+        p = IFSPage1(self)
+        self.add_to_window(p)
+        p.pack()
+        p.lift()
+
+    def display_IFS_custom(self):
+        self.clear_window()
+        p = IFSPage2(self)
+        self.add_to_window(p)
+        p.pack()
+        p.lift()
 
     def create_menu(self):
         #Main menu
@@ -30,8 +51,8 @@ class Main_Window(tk.Tk):
         #Menu/file/new/IFS
         IFS_menu = tk.Menu(new_menu, tearoff = 0)
         new_menu.add_cascade(label = "Iterated Function Systems", menu = IFS_menu)
-        IFS_menu.add_command(label = "3-Dimensional")
-        IFS_menu.add_command(label = "Custom")
+        IFS_menu.add_command(label = "3-Dimensional", command = self.display_IFS_3D)
+        IFS_menu.add_command(label = "Custom", command = self.display_IFS_custom)
         #Menu/help
         help_menu = tk.Menu(menuBar, tearoff = 0)
         menuBar.add_cascade(label = "Help", menu = help_menu)
