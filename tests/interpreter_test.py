@@ -9,6 +9,8 @@ if __name__ == "__main__":
 
     print("Testing basic interpreting with one variable...")
     start_time = os.times()[0]
+    f = euclidean_interpret("1")
+    assert(f(5) == 1)
 
     f = n_interpret("x**2", "x")
     assert(f(5) == 25), "expected: {}, got: {}".format(f(5), 25)
@@ -43,6 +45,12 @@ if __name__ == "__main__":
     assert(computable(f))
     f = euclidean_interpret("")
     assert(not computable(f))
+
+    f = euclidean_interpret("1")
+    assert(computable(f))
+
+    f = euclidean_interpret("1+1 * 5**2")
+    assert(computable(f))
 
     f = euclidean_interpret("a")
     assert(not computable(f))
