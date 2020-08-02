@@ -24,14 +24,14 @@ class Main_Window(tk.Tk):
         self.clear_window()
         p = IFSPage1(self)
         self.add_to_window(p)
-        p.pack()
-        # p.lift()
+        p.grid(row = 0, column = 0)
+
 
     def display_IFS_custom(self):
         self.clear_window()
         p = IFSPage2(self)
         self.add_to_window(p)
-        p.pack()
+        p.grid(row = 0, column = 0)
 
     def create_menu(self):
         #Main menu
