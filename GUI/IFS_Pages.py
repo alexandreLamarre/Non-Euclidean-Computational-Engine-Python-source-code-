@@ -19,6 +19,7 @@ class IFSPage3d(Page):
         self.add_button = None
         self.del_button = None
         self.confirm_button = None
+        self.confirm_transition_button = None
         self.error_label = None
         self.add_layout()
 
@@ -79,6 +80,8 @@ class IFSPage3d(Page):
         if self.transition_frame is not None:
             self.transition_frame.destroy()
             self.transition_label.destroy()
+            self.confirm_transition_button.destroy()
+            self.transitions = []
 
         self.add_button.configure(state="active")
         self.del_button.configure(state="active")
@@ -128,35 +131,75 @@ class IFSPage3d(Page):
     def add_transitions(self):
         fr = tk.Frame(self)
 
-
-        for i in range(self.num_funcs):
+        for i in range(self.num_funcs + 1):
             self.max_row += 1
             transition_row = []
             for j in range(self.num_funcs+1):
-                if j == 0:
-                    labelText = tk.StringVar()
-                    labelText.set("F{}".format(i))
-                    Label = tk.Label(fr, textvariable=labelText)
-                    Label.grid(row = i, column = j)
+                if i == 0:
+                    if j>0:
+                        labelText = tk.StringVar()
+                        labelText.set("F{}".format(j))
+                        Label = tk.Label(fr, textvariable=labelText)
+                        Label.grid(row=i, column=j)
                 else:
-                    text = tk.StringVar(None)
-                    text.set("0")
-                    transition = tk.Entry(fr, textvariable=text, width=8)
-                    transition.grid(row = i, column = j)
-                    transition_row.append(transition)
-            self.transitions.append(transition_row)
+                    if j == 0:
+                        labelText = tk.StringVar()
+                        labelText.set("F{}".format(i))
+                        Label = tk.Label(fr, textvariable=labelText)
+                        Label.grid(row = i, column = j)
+                    else:
+                        text = tk.StringVar(None)
+                        text.set("0")
+                        transition = tk.Entry(fr, textvariable=text, width=8)
+                        transition.grid(row = i, column = j)
+                        transition_row.append(transition)
+
+            if(transition_row != []):
+                self.transitions.append(transition_row)
+
+        # add label to main frame describing transitions
         tr_text= tk.StringVar()
-        tr_text.set("Enter your Transitions for the IFS:")
-        transition_label = tk.Label(self, textvariable = tr_text)
+        tr_text.set("Enter your Transitions for the IFS (Horizontal):")
+        transition_label = tk.Label(self, textvariable = tr_text, wraplength = 150, height = 2)
         transition_label.grid(row = self.max_row, column = 0)
         self.transition_label = transition_label
+        # add button to main frame for confirming transitions
+        self.max_row+=1
+        buttonText = tk.StringVar()
+        buttonText.set("Confirm Transitions")
+        c_tr = tk.Button(self, textvariable=buttonText, command = self.check_transitions)
+        c_tr.grid(row=self.max_row+1, column=1)
+        self.confirm_transition_button = c_tr
+
         fr.grid(row = self.max_row, column =1)
         self.transition_frame = fr
 
+    def check_transitions(self):
+        if self.error_label is not None:
+            self.error_label.destroy()
 
+        error_str = ""
+        for i in range(len(self.transitions)):
+            temp = [x.get() for x in self.transitions[i]]
+            try:
+                temp = [float(x) for x in temp]
+                if sum(temp) == 0:
+                    error_str += "F{}'s transitions cannot sum to 0 ".format(i+1)
+            except:
+                error_str+= "F{}'s transitions are non-numeric ".format(i+1)
 
+            # if not (all([float(x.get())] for x in self.transitions[i] ) ):
+            #     error_str += "F{}'s transitions probability cannot sum to 0".format(i)
 
-
+        if not error_str == "":
+            transition_error_label2_text = tk.StringVar()
+            transition_error_label2_text.set(error_str)
+            transition_error_label2 = tk.Label(self, textvariable = transition_error_label2_text, fg = "red", wraplength = 180)
+            transition_error_label2.grid(row = self.max_row+2, column = 1)
+            self.error_label= transition_error_label2
+        else:
+            # CAN START PLOTTING/ COMPUTING FINALLY
+            pass
 
 
 

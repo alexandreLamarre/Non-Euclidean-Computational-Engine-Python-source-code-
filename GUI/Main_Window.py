@@ -7,7 +7,7 @@ class Main_Window(tk.Tk):
     def __init__(self):
         super(Main_Window, self).__init__()
         self.title("NE Computational Engine")
-        self.minsize(1000, 600)
+        self.minsize(800, 600)
         self.pages = []
         self.create_menu()
 
