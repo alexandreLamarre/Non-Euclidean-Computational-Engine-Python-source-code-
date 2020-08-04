@@ -14,3 +14,4 @@ def match_closed_parentheses(in_str):
     pattern = "\((([^\(\)]*)|(?R))*\)"
     return regex.match(pattern, in_str)
 
+

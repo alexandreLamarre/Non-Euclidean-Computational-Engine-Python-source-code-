@@ -20,6 +20,7 @@ if __name__ == "__main__":
             errors += 1
         bit_false = 0
 
+
     print("Finished testing for strings that should not be matched to functions, found {} errors \n".format(errors))
 
     errors = 0
