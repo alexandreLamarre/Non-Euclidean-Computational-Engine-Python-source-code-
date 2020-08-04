@@ -3,6 +3,8 @@
 This software acts as a computational engine for typically non-euclidean structures.
 
 ###Features: 
+- Interprets typed input commands and functions by matching it to a recursive regex.
+
 - Function Interpreter from string to python-computable function
   - [x] Interpreter that can read combinations of numpy functions and python operators
   for 3 variables (x,y,z)
