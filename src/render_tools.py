@@ -40,4 +40,4 @@ def plot_IFS(functions, transitions):
 def create_extent(array):
     """ Creates an extent based on min, max values of each coordinate of a point  in a
     np array containing points (x,y,z)"""
-    return [-2.5,2.5,0,9]
+    return [-0.2,0.2,-0.2,0.2]

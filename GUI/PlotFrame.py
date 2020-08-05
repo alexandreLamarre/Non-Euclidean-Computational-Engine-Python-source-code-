@@ -2,10 +2,10 @@ import tkinter as tk
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from src.render_tools import plot_IFS
 
-class PlotFrame(tk.Frame):
-    def __init__(self, functions, transitions):
-        tk.Frame.__init__(self)
-        self.mat_plot_canvas(functions, transitions)
+class IFSPlotFrame(tk.Frame):
+    def __init__(self, *args, **kwargs):
+        tk.Frame.__init__(self, *args, **kwargs)
+
 
     def mat_plot_canvas(self, functions, transitions):
         figure = plot_IFS(functions, transitions)

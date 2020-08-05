@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import ttk
 from GUI.IFS_Pages import IFSPage3d
 from GUI.IFS_Pages import IFSPage2
+from GUI.IFS.IFS_Frame import IFS_Frame
 
 class Main_Window(tk.Tk):
     def __init__(self):
@@ -10,6 +11,8 @@ class Main_Window(tk.Tk):
         self.minsize(800, 600)
         self.pages = []
         self.create_menu()
+        self.scrollbar = tk.Scrollbar(self)
+
 
     def clear_window(self):
         """ Clears windows of displayed Frames"""
@@ -22,16 +25,17 @@ class Main_Window(tk.Tk):
 
     def display_IFS_3D(self):
         self.clear_window()
-        p = IFSPage3d(self)
+        p = IFS_Frame(self)
         self.add_to_window(p)
-        p.grid(row = 0, column = 0)
+        p.pack()
+
 
 
     def display_IFS_custom(self):
         self.clear_window()
         p = IFSPage2(self)
         self.add_to_window(p)
-        p.grid(row = 0, column = 0)
+        p.pack()
 
     def create_menu(self):
         #Main menu

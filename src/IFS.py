@@ -6,7 +6,7 @@ class IFS:
     """ Object representing a set of Iterated functions used to generate fractals """
     def __init__(self, funcs, transitions, start_func):
         """ Initialize an IFS from a list of python functions and a list of transitions"""
-        assert(len(funcs) == len(transitions)), "number of functions and transitions are mismatched"
+        assert(len(funcs) == len(transitions)), "number of functions and transitions are mismatched funcs: {}, tr: {}".format(len(funcs), len(transitions))
         self.funcs = funcs
         # Create a markov chain from these Iterated functions used to generate fractals
         self.chain = Chain(funcs, transitions)

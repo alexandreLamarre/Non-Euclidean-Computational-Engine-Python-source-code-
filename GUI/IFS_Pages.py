@@ -1,5 +1,6 @@
 import tkinter as tk
 from src.interpreter import euclidean_interpret, computable
+from GUI.PlotFrame import IFSPlotFrame
 
 class Page(tk.Frame):
     def __init__(self, *args, **kwargs):
@@ -21,6 +22,8 @@ class IFSPage3d(Page):
         self.confirm_button = None
         self.confirm_transition_button = None
         self.error_label = None
+        self.math_transitions = []
+        self.math_functions = []
         self.add_layout()
 
     def add_layout(self):
@@ -98,7 +101,7 @@ class IFSPage3d(Page):
             self.error_label.destroy()
 
         num_errors = 0
-        functions = []
+        self.math_functions = []
         errorLabelText = tk.StringVar()
         error_str = ""
         for i in range(len(self.funcs)):
@@ -108,7 +111,7 @@ class IFSPage3d(Page):
                 error_str += "F{} is not computable. ".format(i+1)
                 num_errors += 1
 
-            functions.append(f)
+            self.math_functions.append(f)
 
         if error_str != "":
             errorLabelText.set(error_str)
@@ -183,8 +186,13 @@ class IFSPage3d(Page):
             temp = [x.get() for x in self.transitions[i]]
             try:
                 temp = [float(x) for x in temp]
+                for el in temp:
+                    if el< 0:
+                        error_str += "F{}'s transitions cannot be < 0 ".format(i+1)
+                        break
                 if sum(temp) == 0:
                     error_str += "F{}'s transitions cannot sum to 0 ".format(i+1)
+
             except:
                 error_str+= "F{}'s transitions are non-numeric ".format(i+1)
 
@@ -194,12 +202,27 @@ class IFSPage3d(Page):
         if not error_str == "":
             transition_error_label2_text = tk.StringVar()
             transition_error_label2_text.set(error_str)
-            transition_error_label2 = tk.Label(self, textvariable = transition_error_label2_text, fg = "red", wraplength = 180)
+            transition_error_label2 = tk.Label(self, textvariable = transition_error_label2_text, fg = "red", wraplength = 170)
             transition_error_label2.grid(row = self.max_row+2, column = 1)
             self.error_label= transition_error_label2
         else:
             # CAN START PLOTTING/ COMPUTING FINALLY
-            pass
+            for i in range(len(self.transitions)):
+                temp = [x.get() for x in self.transitions[i]]
+                for el in self.transitions[i]:
+                    el.configure(state="disabled")
+                math_tr = [float(x) for x in temp]
+                normalize_constant = sum(math_tr)
+                math_tr = [x/normalize_constant for x in math_tr]
+                self.math_transitions.append(math_tr)
+
+            self.confirm_transition_button.configure(state = "disabled")
+            plot_frame = IFSPlotFrame(self)
+            plot_frame.mat_plot_canvas(self.math_functions, self.math_transitions)
+            plot_frame.grid(row = self.max_row + 3, column = 1 )
+
+
+
 
 
 

@@ -24,7 +24,6 @@ def match_closed_parentheses(in_str):
 def match_commands(in_str):
     """ (String) -> (Re.match)"""
     pattern = "(\\\\)[a-zA-Z]*\{[^\\\\\{\}]*\}"
-
     return regex.finditer(pattern, in_str)
 
 
