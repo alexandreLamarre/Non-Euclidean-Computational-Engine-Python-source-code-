@@ -35,7 +35,8 @@ class FunctionManager(FunctionInterpreter):
             res += f
             res += '\n'
         res = res.strip()
-        return "Interpreted input:" + "\n" +res if res else ""
+        return "Interpreted input functions:" + "\n" +res if res else ""
+
     def get_compile_errors(self):
         errors = ""
         for f in self.Functions_container:
@@ -43,6 +44,9 @@ class FunctionManager(FunctionInterpreter):
             f.evaluate(*input_values)
             errors += f.check_errors()
         return errors
+
+    def generate_uninterpreted_reason(self):
+        pass
 
 if __name__ == "__main__":
     s = input()
