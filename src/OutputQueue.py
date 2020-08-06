@@ -1,0 +1,2 @@
+class OutputQueue:
+    pass
