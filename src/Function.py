@@ -16,6 +16,10 @@ class Function(ErrorStack):
         self.in_dimension = len(self.str_vars)
         self.out_dimension = len(self.str_funcs)
 
+        #test evaluation to check compiler errors
+        test_input = [0] * self.in_dimension
+        self.evaluate(*test_input)
+
     def _parse_input(self, function_matched_string):
         """
         (String) -> (String, String[], String[])
@@ -55,7 +59,8 @@ class Function(ErrorStack):
         code_list = []
         for f in str_funcs:
             try:
-                code = parser.expr(f).compile()
+                f2 = f.replace("^", "**")
+                code = parser.expr(f2).compile()
                 code_list.append(code)
             except SyntaxError:
                 # self.push_errors("Invalid function {}".format(f))
@@ -100,7 +105,7 @@ class Function(ErrorStack):
                 value = self.funcs[i](self.str_vars, *args)
                 res.append(value)
             except:
-                self.push_error("'{}' could not be interpreted as a numeric function \n".format(self.str_funcs[i]))
+                self.push_error("'{}' could not be evaluated as a numeric function in user defined function '{}' \n".format(self.str_funcs[i], self.name))
                 self.set_stop()
                 res.append(None)
 
@@ -129,14 +134,24 @@ class Function(ErrorStack):
         return output_str
 
 if __name__ == "__main__":
-    input_test = input()
-    while(input_test):
-        test = match_function(input_test)
-        for t in test:
-            func = Function(t)
-            print(func)
-            print('\n')
-        input_test = input()
+    # input_test = input()
+    # while(input_test):
+    #     test = match_function(input_test)
+    #     for t in test:
+    #         func = Function(t)
+    #         print(func)
+    #         print('\n')
+    #     input_test = input()
 
+    test = match_function("laplace(x,y,z) = (x** (1/3), y**(1/3), z**(1/3)) fourrier(x) = (sin(x^5))")
+    for t in test:
+        func = Function(t)
+        print(func)
+        print(func.check_errors())
+        print(func.evaluate(2))
 
+    #     for t in test:
+    #         func = Function(t)
+    #         print(func)
+    #         print('\n')
 

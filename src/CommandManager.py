@@ -33,10 +33,10 @@ class CommandManager(CommandInterpreter):
 
     def get_interpreted(self):
         output_message = ""
-        for c in self.command_str_container:
-            output_message += c.strip() + "..." +'\n'
+        for c in self.Commands_container:
+            output_message += "Running " + c.get_command_name() + "...\n" +c.get_math_object_information() + "\n"
 
-        return "Running: \n" + output_message if output_message else ""
+        return output_message if output_message else ""
 
 
 
@@ -44,11 +44,12 @@ class CommandManager(CommandInterpreter):
         output_message = self.uninterpreted.strip()
         return "Could not interpret the following as commands :\n" + output_message if output_message else ""
 
-    def generate_reason_uninterpreted(self, failed_str):
-        pass
+
 
 if __name__ == "__main__":
 
-    c = CommandManager("\plotf(x) = (x**2)}")
+    c = CommandManager("\plot{f(x) = (x**2)} \plot{laplace(x,y,z) = (x** (1/3), y**(1/3), z**(1/3)) fourrier(x) = (x^5)}")
     print(c.get_interpreted())
     print(c.get_uninterpreted())
+    x = 5
+    print(x^5)

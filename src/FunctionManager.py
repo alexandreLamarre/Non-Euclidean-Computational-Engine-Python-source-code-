@@ -20,7 +20,7 @@ class FunctionManager(FunctionInterpreter):
             assert(fstr in res), "Interpreted input was not even in the input to begin with??"
             start_index = res.find(fstr)
             end_index = start_index+len(fstr)
-            res = res[0:start_index] +"\n"+ res[end_index:]
+            res = res[0:start_index].strip() +"\n"+ res[end_index:].strip()
             res.strip()
         return res
 
@@ -49,10 +49,5 @@ class FunctionManager(FunctionInterpreter):
         pass
 
 if __name__ == "__main__":
-    s = input()
-    while s != "":
-        test = FunctionManager(s)
-        print(test.get_interpreted())
-        print(test.get_uninterpreted())
-        print(test.get_compile_errors())
-        s = input()
+    test = FunctionManager("laplace(x,y,z) = (x, y**(1/3), z**(1/3)) fourrier(x) = (x//y)}")
+    print(test.get_compile_errors())
