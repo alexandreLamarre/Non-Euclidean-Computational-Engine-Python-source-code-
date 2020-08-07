@@ -1,7 +1,6 @@
 import parser
 from math import *
-from regex_match import match_function
-from Error_Stack import ErrorStack
+from src.Error_Stack import ErrorStack
 
 
 class Function(ErrorStack):
@@ -111,6 +110,9 @@ class Function(ErrorStack):
 
         return res
 
+    def get_codomain_functions(self):
+        return self.funcs
+
     def is_recursive(self):
         if self.name in self.str_vars:
             return False
@@ -134,6 +136,7 @@ class Function(ErrorStack):
         return output_str
 
 if __name__ == "__main__":
+    pass
     # input_test = input()
     # while(input_test):
     #     test = match_function(input_test)
@@ -143,13 +146,7 @@ if __name__ == "__main__":
     #         print('\n')
     #     input_test = input()
 
-    test = match_function("laplace(x,y,z) = (x** (1/3), y**(1/3), z**(1/3)) fourrier(x) = (sin(x^5))")
-    for t in test:
-        func = Function(t)
-        print(func)
-        print(func.check_errors())
-        print(func.evaluate(2))
-
+    #test = match_function("laplace(x,y,z) = (x** (1/3), y**(1/3), z**(1/3)) fourrier(x) = (sin(x^5))")
     #     for t in test:
     #         func = Function(t)
     #         print(func)
