@@ -1,7 +1,7 @@
 import parser
 from math import *
 from src.Error_Stack import ErrorStack
-
+import numpy as np
 
 class Function(ErrorStack):
     def __init__(self, function_string):
