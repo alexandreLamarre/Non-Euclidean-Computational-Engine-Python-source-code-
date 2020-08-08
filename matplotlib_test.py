@@ -3,13 +3,14 @@ import numpy as np
 from mpl_toolkits.mplot3d import Axes3D
 from matplotlib import cm
 from src.Function import Function
+import os
 
-f = Function("f(x,y) = ((x^2+y^2)^(1/2))")
+f = Function("f(x) = (sin(x), x**2)")
 print("Domain dimension is {}".format(f.in_dimension))
 print("Co-Domain dimension is {}".format(f.out_dimension))
 
 if f.in_dimension + f.out_dimension <= 2:
-    xs = np.linspace(-1,1)
+    xs = np.linspace(-19,19,10000)
     ys = []
 
     for x in xs:
@@ -18,14 +19,17 @@ if f.in_dimension + f.out_dimension <= 2:
 
     fig, ax = plt.subplots()
     ax.plot(xs,ys)
-    ax.legend([f.name])
+    plt.xlabel("{}".format(f.str_vars[0]), fontsize = "15")
+    plt.ylabel("{} = {}".format(f.name, f.str_funcs[0]), fontsize = "15")
 
 
 
 elif f.in_dimension + f.out_dimension == 3:
+    print("hello")
+    start_time = os.times()[0]
     if f.in_dimension == 2:
-        xs = np.linspace(-1,1,100)
-        ys = np.linspace(-1,1,100)
+        xs = np.linspace(-20,20,300)
+        ys = np.linspace(-20,20,300)
 
         def g(x,y):
             return f.evaluate(x,y)
@@ -39,11 +43,11 @@ elif f.in_dimension + f.out_dimension == 3:
             zs_row = []
             for j in range(len(ys)):
                 value = f.evaluate(xs[i], ys[j])
-                print("the value is {}".format(value))
+                # print("the value is {}".format(value))
                 if value != [None]:
                     zs_row += value
                 else:
-                    print("Adding 0")
+                    # print("Adding 0")
                     zs_row += [0]
 
             zs.append(zs_row)
@@ -53,7 +57,9 @@ elif f.in_dimension + f.out_dimension == 3:
 
         xs,ys = np.meshgrid(xs,ys)
 
+        end_time = os.times()[0]
 
+        print("Computing values took {} seconds ".format(end_time - start_time))
 
 
         # zs = g(xs,ys)
@@ -74,38 +80,48 @@ elif f.in_dimension + f.out_dimension == 3:
         fig = plt.figure()
         ax = fig.gca(projection='3d')
         ax.legend([f.name, "", ""])
-        ax.plot_surface(xs,ys,zs)
+        ax.plot_surface(xs,ys,zs, linewidth=0.2, antialiased=True, cmap = cm.get_cmap("Spectral"))
 
 
     if f.out_dimension == 2:
-        pass
+        xs = np.linspace(-10,10,4000)
+
+        ys = []
+        zs = []
+        for i in range(xs.size):
+            new_y, new_z = f.evaluate(xs[i])
+            if new_y != None:
+                ys.append(new_y)
+            else:
+                ys.append(0)
+            if new_z != None:
+                zs.append(new_z)
+            else:
+                zs.append(0)
+
+        ys = np.array(ys)
+        zs = np.array(zs)
+        copy_xs = xs
+        xs,ys = np.meshgrid(xs,ys)
+        copy_xs, zs = np.meshgrid(copy_xs, zs)
+
+
+        fig = plt.figure()
+
+
+        gs = fig.add_gridspec(1, 2)
+        ax = fig.add_subplot(gs[0,0], projection='3d')
+
+        # fig.gca(projection='3d')
+        surf = ax.plot_surface(xs, ys, zs, linewidth=0.2, antialiased=True, cmap = cm.get_cmap("Spectral"))
+
+
+
+        ax = fig.add_subplot(gs[0,1], projection = "3d")
+        ax.plot_surface(xs,ys,zs)
+
 
 plt.show()
 
 
 
-
-
-
-
-
-
-
-
-# fig = plt.figure()
-# ax = fig.gca(projection='3d')
-# X = np.arange(-5, 5, 0.25)
-# Y = np.arange(-5, 5, 0.25)
-# print(X)
-# print(Y)
-# X, Y = np.meshgrid(X, Y)
-# print(X)
-# print(Y)
-# R = np.sqrt(X**2 + Y**2)
-# Z = np.sin(R)
-#
-# surf = ax.plot_surface(X, Y, Z, linewidth = 0)# cmap=cm.coolwarm,
-#                        #linewidth=0, antialiased=False)
-# # fig.colorbar(surf, shrink=0.5, aspect=5)
-#
-# plt.show()

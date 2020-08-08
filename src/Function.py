@@ -113,6 +113,8 @@ class Function(ErrorStack):
     def get_codomain_functions(self):
         return self.funcs
 
+    def get_vars(self):
+        return self.str_vars
     def is_recursive(self):
         if self.name in self.str_vars:
             return False
