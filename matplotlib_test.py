@@ -26,18 +26,11 @@ if f.in_dimension + f.out_dimension <= 2:
 
 elif f.in_dimension + f.out_dimension == 3:
     print("hello")
-    start_time = os.times()[0]
+
     if f.in_dimension == 2:
         xs = np.linspace(-20,20,300)
         ys = np.linspace(-20,20,300)
 
-        def g(x,y):
-            return f.evaluate(x,y)
-        #g(x,y) = f.evaluate(x,y)
-        # def g(x,y):
-        #     return np.sqrt(x**2+y**2)
-        #
-        # g = np.vectorize(f.get_codomain_functions()[0])
         zs = []
         for i in range(len(xs)):
             zs_row = []
@@ -52,14 +45,10 @@ elif f.in_dimension + f.out_dimension == 3:
 
             zs.append(zs_row)
         zs = np.array(zs)
-        print(np.array(np.nan))
         zs = np.nan_to_num(zs)
 
         xs,ys = np.meshgrid(xs,ys)
 
-        end_time = os.times()[0]
-
-        print("Computing values took {} seconds ".format(end_time - start_time))
 
 
         # zs = g(xs,ys)
