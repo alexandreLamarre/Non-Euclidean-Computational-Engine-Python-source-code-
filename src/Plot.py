@@ -29,6 +29,8 @@ class Plot:
                 self.plot3d_one_two(f,fig,gs,i,0)
             elif f.in_dimension == 2 and f.out_dimension == 1:
                 self.plot3d_two_one(f,fig,gs,i,0)
+            elif f.out_dimension >1 and f.out_dimension ==2:
+                self.plot3d_n_to_two(f,fig,gs,i,0)
             i += 1
         end_time = os.times()[0]
         print("Plotting took: {} seconds".format(end_time - start_time))
@@ -108,7 +110,37 @@ class Plot:
         ax = figure.add_subplot(projection = "3d")#grid[y_grid,x_grid], projection="3d")
         ax.plot_surface(xs,ys,zs, cmap = cm.get_cmap("Spectral"), antialiased = True)
 
+    def plot3d_n_to_two(self, function, figure,grid,y_grid =0, x_grid= 0):
+        ## currently only two
+        n_points = int(np.sqrt(self.num_points))
+        xs = np.linspace(-100,100,n_points)
+        ys = np.linspace(-100,100,n_points)
+
+        euclidean_norm = []
+        x_list = []
+        y_list = []
+        for x in xs:
+
+            for y in ys:
+                euclidean_norm.append(np.sqrt(x**2+y**2))
+                temp = function.evaluate(x,y)
+                x_list.append(temp[0])
+                y_list.append(temp[1])
+
+        euclidean_norm = np.array(euclidean_norm)
+        x_list = np.array(x_list)
+        y_list = np.array(y_list)
+        x_copy = x_list
+        x_list, y_list = np.meshgrid(x_list,y_list)
+
+        x_copy, euclidean_norm = np.meshgrid(x_copy, euclidean_norm)
+
+
+        ax = figure.add_subplot(projection="3d")  # grid[y_grid,x_grid], projection="3d")
+        ax.plot_surface(x_list, y_list, euclidean_norm, cmap=cm.get_cmap("Spectral"), antialiased=True)
+
 if __name__ == "__main__":
-    fm = FunctionManager("f(x,y) = (x**2 + 1/y) g(y) = (y**2, y**3) f(k) = (log(k))")
+    # fm = FunctionManager("f(x,y) = (x**2 + 1/y) g(y) = (y**2, y**3) f(k) = (log(k))")
+    fm = FunctionManager("f(x,y) = (sin(x), cos(y))")
     p = Plot(fm)
     p.run()
