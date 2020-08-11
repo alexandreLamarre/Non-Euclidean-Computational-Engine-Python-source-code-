@@ -17,6 +17,7 @@ class Function(ErrorStack):
                 -Information about the Domain and Co-Domain of the function
         """
         super().__init__()
+        self.info_string = function_string
         self.name, self.str_vars, self.str_funcs = self._parse_input(function_string)
         self.funcs = self.create_funcs(self.str_funcs)
         self.in_dimension = len(self.str_vars)

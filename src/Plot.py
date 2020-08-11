@@ -170,7 +170,7 @@ class Plot:
         plt.plot(total_xs, total_ys, total_contours)
 
 
-        # ax = figure.add_subplot(projection="3d")  # grid[y_grid,x_grid], projection="3d")
+        # ax = figure.add_subplot(projection="3d")  # grid[y_grid,x_grid], projection="3d" )
         # ax.plot_surface(new_xs, new_ys,euclidean_norm, cmap=cm.get_cmap("Spectral"), antialiased=True)
 
 
