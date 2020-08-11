@@ -2,24 +2,28 @@
 
 ## Foreword
 
-A computational engine is hard to define, but easy to reckognize. 
+A computational engine is hard to define, but easy to recognize. 
 In general a computation engine takes some aggregation of data and returns a meaningful result. This implementation of a computational engine 
 takes symbolic mathematical input from the user, computes its properties and returns them in a way humans can understand. 
  
 Traditionally, other mathematical computational engines like Wolfram Alpha(now computational intelligence) focus on 
-the fixed three dimensions that we've all seen in highschool geometry, highschool algebra and college calculus. 
+the fixed three dimensions that we've all seen in high school geometry, high school algebra and college calculus. 
 These methods represent simple ways to interpret phenomena and are euclidean in nature.
 In this computational engine, we aim to take things further and also interpret
 the properties of mathematical symbols that produce things that are non-euclidean in nature. 
   
 
 ## Table of Contents
-- [The goal](#The goal)
+- [The goal](#The Goal)
 - [Features](#Features)
 - [Quick guide](#Quick guide)
 - [Implementation details](#Implementation details)
-- [External Libraries](#variable-name-conventions)
+- [External Libraries](#External Libraries)
 - [References](#References)
+
+##The goal:
+
+- 
 
 ## Features: 
 - Command interpreter for commands of the form`\command_name{arguments}`
@@ -33,6 +37,16 @@ the properties of mathematical symbols that produce things that are non-euclidea
   - Functions from R<sup>2</sup> to R using meshgrid technology
   - Functions from R<sup>2</sup> to R<sup>2</sup> using contour maps
   
+  
+ 
+##Quick guide:
+
+- 
+
+## Implementation details
+
+-
+
 <!---
 - Iterated Function Systems:
   - [x] Plot 
@@ -51,12 +65,13 @@ the properties of mathematical symbols that produce things that are non-euclidea
    - [ ] Exact roots of polynomials
    - [ ] Properties Evaluator
 --->
-  ## External Libraries
+ ## External Libraries
 - [NumPy](https://numpy.org/doc/)
 - [Matplotlib](https://matplotlib.org/)
 - [regex](https://pypi.org/project/regex/)
 - [SymPy](https://www.sympy.org/en/index.html)
-  ## References
+
+ ## References
   
 
   - Tucker, Alan. "Applied Combinatorics" 6th edition 2012
