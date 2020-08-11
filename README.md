@@ -14,7 +14,7 @@ the properties of mathematical symbols that produce things that are non-euclidea
   
 
 ## Table of Contents
-- [The goal](#The Goal)
+- [The goal](#The goal)
 - [Features](#Features)
 - [Quick guide](#Quick guide)
 - [Implementation details](#Implementation details)
@@ -43,9 +43,11 @@ the properties of mathematical symbols that produce things that are non-euclidea
 
 - 
 
+
 ## Implementation details
 
 -
+
 
 <!---
 - Iterated Function Systems:
@@ -65,13 +67,14 @@ the properties of mathematical symbols that produce things that are non-euclidea
    - [ ] Exact roots of polynomials
    - [ ] Properties Evaluator
 --->
- ## External Libraries
+
+## External Libraries
 - [NumPy](https://numpy.org/doc/)
 - [Matplotlib](https://matplotlib.org/)
 - [regex](https://pypi.org/project/regex/)
 - [SymPy](https://www.sympy.org/en/index.html)
 
- ## References
+## References
   
 
   - Tucker, Alan. "Applied Combinatorics" 6th edition 2012
