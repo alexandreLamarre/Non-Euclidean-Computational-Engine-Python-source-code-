@@ -21,7 +21,7 @@ the properties of mathematical symbols that produce things that are non-euclidea
 - [External Libraries](#External Libraries)
 - [References](#References)
 
-##The goal:
+## The goal:
 
 - 
 
@@ -39,7 +39,7 @@ the properties of mathematical symbols that produce things that are non-euclidea
   
   
  
-##Quick guide:
+## Quick guide:
 
 - 
 
