@@ -17,7 +17,9 @@ the properties of mathematical objects that produce things that are non-euclidea
 - [The goal](#The-goal)
 - [Features](#Features)
 - [Quick guide](#Quick-guide)
+- [Code architecture](#Code-architecture)
 - [Implementation details](#Implementation-details)
+- [Known issues](#Known-issues)
 - [External Libraries](#External-Libraries)
 - [References](#References)
 
@@ -46,7 +48,12 @@ the properties of mathematical objects that produce things that are non-euclidea
 
 ## Implementation details
 
--
+- Function variables overshadow math standard 
+library variables and functions. 
+    - For example,
+`f(e) = (e^2)` is equivalent to `g(x) = (x^2)` and to use the 
+math constant e in `f` we would have to refer to it as
+`f(e) = (math.e * e^2)` which is equivalent to `g(x) = (e* x^2)`
 
 
 <!---
@@ -67,6 +74,13 @@ the properties of mathematical objects that produce things that are non-euclidea
    - [ ] Exact roots of polynomials
    - [ ] Properties Evaluator
 --->
+
+## Known issues
+- Complex casting happens in exponential and logarithmic functions 
+in contour maps from R<sup>2</sup> to R<sup>2</sup> when they involve multiple
+variables when complex casting should not occur. Issue likely has to do with the 
+implementation of the math standard library. 
+
 
 ## External Libraries
 - [NumPy](https://numpy.org/doc/)
