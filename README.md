@@ -80,7 +80,8 @@ math constant e in `f` we would have to refer to it as
 in contour maps from R<sup>2</sup> to R<sup>2</sup> when they involve multiple
 variables when complex casting should not occur. Issue likely has to do with the 
 implementation of the math standard library. 
-
+- New labels overlap on labels of previously computed plots. 
+Supposed to be resolved in a future version of matplotlib.  
 
 ## External Libraries
 - [NumPy](https://numpy.org/doc/)
