@@ -3,22 +3,22 @@
 ## Foreword
 
 A computational engine is hard to define, but easy to recognize. 
-In general a computation engine takes some aggregation of data and returns a meaningful result. This implementation of a computational engine 
+In general a computation engine takes some aggregation of data and returns a meaningful result. This implementation of a computationalal engine 
 takes symbolic mathematical input from the user, computes its properties and returns them in a way humans can understand. 
  
 Traditionally, other mathematical computational engines like Wolfram Alpha(now computational intelligence) focus on 
 the fixed three dimensions that we've all seen in high school geometry, high school algebra and college calculus. 
-These methods represent simple ways to interpret phenomena and are euclidean in nature.
-In this computational engine, we aim to take things further and also interpret
-the properties of mathematical symbols that produce things that are non-euclidean in nature. 
+These methods represent simple ways to interpret phenomena and are Euclidean in nature.
+In this computational engine, we aim to take things further by also interpreting
+the properties of mathematical objects that produce things that are non-euclidean in nature. 
   
 
 ## Table of Contents
-- [The goal](#The goal)
+- [The goal](#The-goal)
 - [Features](#Features)
-- [Quick guide](#Quick guide)
-- [Implementation details](#Implementation details)
-- [External Libraries](#External Libraries)
+- [Quick guide](#Quick-guide)
+- [Implementation details](#Implementation-details)
+- [External Libraries](#External-Libraries)
 - [References](#References)
 
 ## The goal:
