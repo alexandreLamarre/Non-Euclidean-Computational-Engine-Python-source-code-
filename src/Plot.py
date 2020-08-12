@@ -17,6 +17,7 @@ class Plot:
 
     def run(self):
         y_grid, x_grid = self.preprocess()
+        figure_list = []
         start_time = os.times()[0]
         fig = plt.figure()
         gs = 0
@@ -32,12 +33,14 @@ class Plot:
                 self.plot3d_two_one(f,fig,gs,i,0)
             elif f.out_dimension >1 and f.out_dimension ==2:
                 self.plot3d_two_to_two(f,fig,gs,i,0)
+            figure_list.append(fig)
             i += 1
         end_time = os.times()[0]
         print("Plotting took: {} seconds".format(end_time - start_time))
         plt.rc('xtick', labelsize=8)
         plt.rc('ytick', labelsize=8)
-        plt.show()
+        return figure_list
+
 
     def preprocess(self):
         y_grid = 1

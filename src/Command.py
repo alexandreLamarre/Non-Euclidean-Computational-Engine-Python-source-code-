@@ -1,5 +1,5 @@
 from src.FunctionManager import FunctionManager
-
+from src.Plot import Plot
 class Command():
     """
     Factory Object that manages the creation of DataManager Objects, i.e. FunctionManager
@@ -31,7 +31,15 @@ class Command():
         """
         Runs the command specified on its arguments
         """
-        pass
+        output = []
+        if self.command == 'plot':
+            for math in self.math_objects:
+                if isinstance(math,FunctionManager):
+                    plot = Plot(math)
+                    figures = plot.run()
+                    for f in figures:
+                        output.append(f)
+        return output
 
     def process_input(self, command_str):
         """

@@ -1,5 +1,5 @@
 import tkinter as tk
-from GUI.PlotFrame import IFSPlotFrame
+from GUI.PlotFrame import PlotFrame
 from src.CommandManager import CommandManager
 
 class Page(tk.Frame):
@@ -40,7 +40,19 @@ class CLI(Page):
         label = tk.Label(self, text = interpreted, font = ("Calibri", 14))
         label2 = tk.Label(self, text = uninterpreted, fg="red", font = ("Calibri", 14))
         label.grid(row = self.num_rows, column = 0)
+        self.num_rows += 1
         label2.grid(row = self.num_rows, column = 0)
+        self.num_rows += 1
 
         self.information.append(label)
         self.information.append(label2)
+
+        for el in commands.Commands_container:
+            ## assumes plotting command
+            output = el.run()
+            for plot in output:
+                plot_frame = PlotFrame(self)
+                self.information.append(plot_frame)
+                plot_frame.mat_plot_canvas(plot)
+                plot_frame.grid(row = self.num_rows, column = 0)
+                self.num_rows += 1
