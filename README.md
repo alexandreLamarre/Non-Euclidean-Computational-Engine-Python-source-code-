@@ -3,7 +3,8 @@
 ## Foreword
 
 A computational engine is hard to define, but easy to recognize. 
-In general a computation engine takes some aggregation of data and returns a meaningful result. This implementation of a computationalal engine 
+In general a computation engine takes some aggregation of data and returns a meaningful result. 
+This implementation of a computational engine 
 takes symbolic mathematical input from the user, computes its properties and returns them in a way humans can understand. 
  
 Traditionally, other mathematical computational engines like Wolfram Alpha(now computational intelligence) focus on 
@@ -30,7 +31,7 @@ the properties of mathematical objects that produce things that are non-euclidea
 ## Features: 
 - Command interpreter for commands of the form`\command_name{arguments}`
 - Function Interpreter:
-  - Interprets **custom** mathemtical functions from input into python computable functions
+  - Interprets **custom** mathematical functions from input into python computable functions
   - Makes use of the math standard library for python
   
 - Plotting functions from custom mathematical functions for:
