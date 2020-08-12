@@ -1,5 +1,6 @@
 import tkinter as tk
 from tkinter import ttk
+from GUI.ScrollableFrame import ScrollableFrame
 # from GUI.IFS_Pages import IFSPage3d
 # from GUI.IFS_Pages import IFSPage2
 # from GUI.IFS.IFS_Frame import IFS_Frame
@@ -8,10 +9,11 @@ class Main_Window(tk.Tk):
     def __init__(self):
         super(Main_Window, self).__init__()
         self.title("NE Computational Engine")
+
         self.minsize(800, 600)
         self.pages = []
         # self.create_menu()
-        self.scrollbar = tk.Scrollbar(self)
+
         self.display_CLI()
 
     def clear_window(self):
