@@ -1,2 +1,5 @@
+from GUI.Main_Window import Main_Window
+
 if __name__ == "__main__":
-    pass
+    window = Main_Window()
+    window.mainloop()

@@ -1,4 +1,4 @@
-from FunctionManager import FunctionManager
+from src.FunctionManager import FunctionManager
 
 class Command():
     """

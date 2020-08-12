@@ -1,5 +1,5 @@
-from interpreter import CommandInterpreter
-from Command import Command
+from src.interpreter import CommandInterpreter
+from src.Command import Command
 
 
 class CommandManager(CommandInterpreter):

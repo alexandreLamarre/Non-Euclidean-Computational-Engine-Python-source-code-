@@ -1,6 +1,6 @@
-from interpreter import FunctionInterpreter
-from Error_Stack import ErrorStack
-from Function import Function
+from src.interpreter import FunctionInterpreter
+from src.Error_Stack import ErrorStack
+from src.Function import Function
 
 class FunctionManager(FunctionInterpreter):
     """Factory object that processes the input arguments inside a command object
