@@ -32,16 +32,19 @@ class Command():
     def run(self):
         """
         Runs the command specified on its arguments
+        Should return the label of the widget it should be displayed in AND
+        Should return the tuple (sublabels, info) that should be displayed in label should be displayed in
         """
         output = []
+        main_label = self.command
         if self.command == 'plot':
             for math in self.math_objects:
                 if isinstance(math,FunctionManager):
                     plot = Plot(math)
                     figures = plot.run()
                     for f in figures:
-                        output.append(f)
-        return output
+                        output.append((None, f))
+        return main_label, output
 
     def process_input(self, command_str):
         """

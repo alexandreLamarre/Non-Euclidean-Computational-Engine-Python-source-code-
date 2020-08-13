@@ -45,7 +45,7 @@ class FunctionManager(FunctionInterpreter):
         """
         output = self.uninterpreted.strip()
 
-        return "The following could not be interpreted as a function : \n" + output if output else ""
+        return "The following could not be interpreted as a function :" + output if output else ""
 
     def get_interpreted(self):
         """
@@ -56,9 +56,9 @@ class FunctionManager(FunctionInterpreter):
         res = ''
         for f in self.Functions_str_container:
             res += f
-            res += '\n'
+            res += ' '
         res = res.strip()
-        return "Interpreted input functions:" + "\n" +res if res else ""
+        return "Functions:" + " " +res if res else ""
 
     def get_compile_errors(self):
         """

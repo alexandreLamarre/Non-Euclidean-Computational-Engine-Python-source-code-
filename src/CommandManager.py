@@ -18,19 +18,48 @@ class CommandManager(CommandInterpreter):
         Creates a list of Command Objects using those strings
         """
         super().__init__()
+        self.done = False
+        self.initial_done = False
         self.command_str_container = self.match(commands_str)
         self.uninterpreted = self.process_uninterpreted(commands_str)
         self.Commands_container = [Command(c) for c in self.command_str_container]
+        self.commands_queue = list(self.Commands_container)
 
-
-    def run_all(self):
+    def run_initial(self):
         """
-        None -> #TODO
-
-        Runs all commands interpreted by the command manager
+        Gets interpreted commands
+        Gets uninterpreted commands
+        Gets interpreted input
+        Gets uninterpreted input
+        Gets errors in input
         """
-        for c in self.Commands_container:
-            c.run()
+        mainlabel = "Input"
+        output = []
+        output.append(("Interpreted", self.get_interpreted()))
+        output.append(("Uninterpreted",self.get_uninterpreted()))
+        output.append(("Errors",self.get_errors()))
+        self.initial_done = True
+        return mainlabel, output
+
+    def run_next(self):
+        if len(self.commands_queue) == 0:
+            self.done = True
+            return None
+        next_command = self.commands_queue.pop(0)
+        output = next_command.run()
+        # Output is in the form [main label, (sublabel, info)]
+        return output
+
+
+    # def run_all(self):
+    #     """
+    #     None -> #TODO
+    #
+    #     Runs all commands interpreted by the command manager
+    #     """
+    #     for c in self.Commands_container:
+    #         yield c.run()
+    #     self.done = True
 
     def run_default(self):
         """
@@ -69,7 +98,7 @@ class CommandManager(CommandInterpreter):
         """
         output_message = ""
         for c in self.Commands_container:
-            output_message += "Running " + c.get_command_name() + "...\n" +c.get_math_object_information()
+            output_message += "Command" +" '"+c.get_command_name() + "' on: \n" +c.get_math_interpreted()+"\n"
 
         return output_message if output_message else ""
 
@@ -81,9 +110,20 @@ class CommandManager(CommandInterpreter):
         Returns the uninterpreted commands in the command line formatted to a user friendly string
         """
         output_message = self.uninterpreted.strip()
-        return "Could not interpret the following as commands :\n" + output_message if output_message else ""
+        output_message = "Could not interpret the following as commands :\n" + output_message if output_message else ""
+        for c in self.Commands_container:
+            unin = c.get_math_uninterpreted()
+            if unin:
+                output_message += "In " +c.command + " : " + unin +"\n"
+        return output_message
 
+    def get_errors(self):
+        output_message = ""
+        for c in self.Commands_container:
+            if c.get_math_errors() != "":
+                output_message += "In " + c.command + " : \n" +c.get_math_errors() +"\n"
 
+        return output_message
 
 if __name__ == "__main__":
 
