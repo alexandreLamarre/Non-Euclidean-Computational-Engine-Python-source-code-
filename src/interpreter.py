@@ -28,5 +28,5 @@ class FunctionInterpreter(Interpreter):
 
 class CommandInterpreter(Interpreter):
     def __init__(self):
-        super().__init__("(\\\\)[a-zA-Z]*\{[^\\\\\{\}]*\}")
+        super().__init__("[a-zA-Z]*\{[^\\\\\{\}]*\}")
 

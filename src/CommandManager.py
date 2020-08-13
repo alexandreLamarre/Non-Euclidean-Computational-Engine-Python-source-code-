@@ -69,7 +69,7 @@ class CommandManager(CommandInterpreter):
         """
         output_message = ""
         for c in self.Commands_container:
-            output_message += "Running " + c.get_command_name() + "...\n" +c.get_math_object_information() + "\n"
+            output_message += "Running " + c.get_command_name() + "...\n" +c.get_math_object_information()
 
         return output_message if output_message else ""
 

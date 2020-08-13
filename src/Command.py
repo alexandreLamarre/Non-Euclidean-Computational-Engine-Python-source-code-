@@ -20,7 +20,9 @@ class Command():
 
         # 'Static dictionary for the valid input classes inside the command given
         # In the future should be replaced by a database
-        self.commands_dict = {'plot': ['FunctionManager'], 'IFS': ['FunctionManager', 'MarkovChain']}
+        self.commands_dict = {'plot': ['FunctionManager'], 'IFS': ['FunctionManager', 'MarkovChain'], \
+                              'zeros' : ['FunctionManager'], 'derivative': ['FunctionManager'], 'integral' : ['FunctionManager'],\
+                              'partialderivative' : ['FunctionManager'], 'partialintegral': ['FunctionManager']}
         self.input_types = []
 
         assert(self.command in self.commands_dict), "Command not recognized"
@@ -67,7 +69,6 @@ class Command():
         output_str = command_str.strip()
         output_str = output_str.split("{")
         output_str = output_str[0]
-        output_str = output_str[1:]
 
         return output_str
 
@@ -82,6 +83,24 @@ class Command():
                     output_list.append(FunctionManager(self.arguments))
         return output_list
 
+    def get_math_interpreted(self):
+        res = ""
+        for obj in self.math_objects:
+            res += obj.get_interpreted()
+        return res
+
+    def get_math_uninterpreted(self):
+        res = ""
+        for obj in self.math_objects:
+            res += obj.get_uninterpreted()
+        return res
+
+    def get_math_errors(self):
+        res = ""
+        for obj in self.math_objects:
+            res += obj.get_compile_errors()
+        return res
+
     def get_math_object_information(self):
         """
         None -> (String)
@@ -89,15 +108,10 @@ class Command():
         Gets the information produced by the DataManger at dynamic compile time
         includes errors/interpreted/uninterpreted
         """
-        res = ""
-        for obj in self.math_objects:
-            res += obj.get_interpreted()
+        res = self.get_math_interpreted()
         res += "\n"
-        for obj in self.math_objects:
-            res += obj.get_uninterpreted()
-            # res += obj.c
-        for obj in self.math_objects:
-            res += obj.get_compile_errors()
+        res += self.get_math_uninterpreted()
+        res += self.get_math_errors()
         return res
 
     def get_command_name(self):
