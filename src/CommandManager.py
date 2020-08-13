@@ -44,11 +44,12 @@ class CommandManager(CommandInterpreter):
     def run_next(self):
         if len(self.commands_queue) == 0:
             self.done = True
-            return None
+            # No label and no [sublabel,info] pairs
+            return None,None
         next_command = self.commands_queue.pop(0)
-        output = next_command.run()
+        main_label, sub_labels_and_info = next_command.run()
         # Output is in the form [main label, (sublabel, info)]
-        return output
+        return main_label,sub_labels_and_info
 
 
     # def run_all(self):

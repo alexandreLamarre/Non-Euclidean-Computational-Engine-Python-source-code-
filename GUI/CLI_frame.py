@@ -5,12 +5,13 @@ from GUI.ScrollableFrame import ScrollableFrame
 from Controller.InputDataController import InputDataController
 from GUI.InfoFrame import InfoFrame
 from GUI.InputFrame import InputFrame
+from GUI.InputPlotFrame import InputPlotFrame
 class Page(tk.Frame):
     def __init__(self, *args, **kwargs):
         tk.Frame.__init__(self, *args, **kwargs)
 
 class CLI(ScrollableFrame):
-    def __init__(self,parent):
+    def __init__(self,parent,*args,**kwargs):
         ScrollableFrame.__init__(self,parent)
 
         self.controller = InputDataController()
@@ -23,7 +24,7 @@ class CLI(ScrollableFrame):
 
 
     def add_command_line(self):
-        label = tk.Label(self.frame, text = "Enter an expression to be computed", font = ("Latin Modern", 20), background = "AntiqueWhite1" )
+        label = tk.Label(self.frame, text = "Non Euclidean Computational Engine", font = ("Latin Modern", 20), background = "AntiqueWhite1" )
         label.grid(row = 0, column = 0, sticky = "EW")
         text = tk.StringVar(None)
         CLI = tk.Entry(self.frame, textvariable = text, width = 75, font = ("Calibri", 14))
@@ -44,7 +45,7 @@ class CLI(ScrollableFrame):
         self.processing_data = True
 
     def refresher(self):
-        self.after(200, self.refresher)
+        self.after(100, self.refresher)
         if self.controller.queue.empty():
             pass
         else:
@@ -52,7 +53,8 @@ class CLI(ScrollableFrame):
             self.create_new_info_frame()
         if self.processing_data == True:
             self.controller.run_commands()
-            self.processing_data = False
+            if self.controller.command_manager.done:
+                self.processing_data = False
 
     def create_new_info_frame(self):
         main_label, sublabels_and_info = self.controller.queue.get()
@@ -60,6 +62,11 @@ class CLI(ScrollableFrame):
         print(sublabels_and_info)
         if main_label == "Input":
             new_frame = InputFrame(self.frame, main_label, sublabels_and_info)
+            new_frame.grid(row=self.num_rows, column=0, sticky="W")
+            self.num_rows += 1
+            self.information.append(new_frame)
+        if main_label == "plot":
+            new_frame = InputPlotFrame(self.frame, main_label, sublabels_and_info)
             new_frame.grid(row=self.num_rows, column=0, sticky="W")
             self.num_rows += 1
             self.information.append(new_frame)

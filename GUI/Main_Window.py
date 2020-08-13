@@ -30,19 +30,7 @@ class Main_Window(tk.Tk):
         p = CLI(self)
         self.add_to_window(p)
         p.pack()
-    # def display_IFS_3D(self):
-    #     self.clear_window()
-    #     p = IFS_Frame(self)
-    #     self.add_to_window(p)
-    #     p.pack()
-    #
-    #
-    #
-    # def display_IFS_custom(self):
-    #     self.clear_window()
-    #     p = IFSPage2(self)
-    #     self.add_to_window(p)
-    #     p.pack()
+
 
     # def create_menu(self):
     #     #Main menu

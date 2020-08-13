@@ -14,8 +14,8 @@ class InputDataController:
     def run_commands(self):
         if self.command_manager.initial_done == True:
             label, sublabels_and_frame_info_tuple = self.command_manager.run_next()
-
-            self.queue.put([label, sublabels_and_frame_info_tuple])
+            if label != None and sublabels_and_frame_info_tuple != None:
+                self.queue.put([label, sublabels_and_frame_info_tuple])
         else:
             label, sublabels_and_frame_info_tuple = self.command_manager.run_initial()
 
