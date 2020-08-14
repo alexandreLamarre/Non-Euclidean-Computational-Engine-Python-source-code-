@@ -3,6 +3,9 @@ from src.Error_Stack import ErrorStack
 import parser
 from sympy import *
 from src.FunctionManager import FunctionManager
+from io import BytesIO
+from PIL import Image, ImageTk
+import os
 
 class Calculus(OutputQueue, ErrorStack):
     def __init__(self, functionManager):
@@ -57,7 +60,7 @@ class Calculus(OutputQueue, ErrorStack):
                     range_function_var_root_tuple = (self.Functions[i].str_funcs[(j-1)//roots_modulus], function_root_list)
                     all_range_functions_root_list.append(range_function_var_root_tuple)
                     function_root_list = []
-                var_root_tuple = (self.Functions[i].str_vars[j%roots_modulus],eval(eval_list[i][j]))
+                var_root_tuple = (self.Functions[i].str_vars[j%roots_modulus],latex(eval(eval_list[i][j])))
                 function_root_list.append(var_root_tuple)
             ##has only one range function and one variable
             if(all_range_functions_root_list == []):
@@ -79,16 +82,106 @@ class Calculus(OutputQueue, ErrorStack):
 
 
     def partial_derivatives(self):
+        ## Compile code for computing derivatives
+        eval_list = []
+        for f in self.Functions:
+            code_list = []
+            for var in f.str_vars:
+                exec("{} = symbols('{}')".format(var, var))
+            for function in f.str_funcs:
+                for var in f.str_vars:
+                    code = parser.expr("diff({}, {})".format(function, var)).compile()
+                    code_list.append(code)
+            eval_list.append(code_list)
+
+        output_list = []
+        for i in range(len(self.Functions)):
+            function_root_list = []
+            all_range_functions_root_list = []
+            roots_modulus = len(self.Functions[i].str_vars)
+            for j in range(len(eval_list[i])):
+                if j % roots_modulus == 0 and j != 0:
+                    range_function_var_root_tuple = (
+                        self.Functions[i].str_funcs[(j - 1) // roots_modulus], function_root_list)
+                    all_range_functions_root_list.append(range_function_var_root_tuple)
+                    function_root_list = []
+                var_root_tuple = (self.Functions[i].str_vars[j % roots_modulus], latex(eval(eval_list[i][j])))
+                function_root_list.append(var_root_tuple)
+            ##has only one range function and one variable
+            if (all_range_functions_root_list == []):
+                range_function_var_root_tuple = (
+                    self.Functions[i].str_funcs[0], function_root_list)
+                all_range_functions_root_list.append(range_function_var_root_tuple)
+            function_root_tuple = (self.Functions[i].name, all_range_functions_root_list)
+            output_list.append(function_root_tuple)
+        return output_list
+
+    def second_order_partials(self):
         pass
 
     def partial_integrals(self):
-        pass
+        eval_list = []
+        for f in self.Functions:
+            code_list = []
+            for var in f.str_vars:
+                exec("{} = symbols('{}')".format(var, var))
+            for function in f.str_funcs:
+                for var in f.str_vars:
+                    code = parser.expr("integrate({}, {})".format(function, var)).compile()
+                    code_list.append(code)
+            eval_list.append(code_list)
+
+        output_list = []
+        for i in range(len(self.Functions)):
+            function_root_list = []
+            all_range_functions_root_list = []
+            roots_modulus = len(self.Functions[i].str_vars)
+            for j in range(len(eval_list[i])):
+                if j % roots_modulus == 0 and j != 0:
+                    range_function_var_root_tuple = (
+                        self.Functions[i].str_funcs[(j - 1) // roots_modulus], function_root_list)
+                    all_range_functions_root_list.append(range_function_var_root_tuple)
+                    function_root_list = []
+                var_root_tuple = (self.Functions[i].str_vars[j % roots_modulus], latex(eval(eval_list[i][j])))
+                function_root_list.append(var_root_tuple)
+            ##has only one range function and one variable
+            if (all_range_functions_root_list == []):
+                range_function_var_root_tuple = (
+                    self.Functions[i].str_funcs[0], function_root_list)
+                all_range_functions_root_list.append(range_function_var_root_tuple)
+            function_root_tuple = (self.Functions[i].name, all_range_functions_root_list)
+            output_list.append(function_root_tuple)
+        return output_list
 
 if __name__ == "__main__":
+    start_time = os.times()[0]
     funct = FunctionManager("f(x,y) = (x**2-1 , x+y, y**2+3) g(x) = (x**3)")
     calcs = Calculus(funct)
-    output = calcs.zeroes()
+    zeros = calcs.zeroes()
 
-    print(output)
-    str_output = str(output[0][0])
+    print(zeros)
+    str_output = str(zeros[0][0])
     print(str_output)
+
+    derivatives = calcs.partial_derivatives()
+    print(derivatives)
+
+
+
+    integrals = calcs.partial_integrals()
+    print(integrals)
+    end_time = os.times()[0]
+    print("Finished in {} seconds".format(end_time-start_time))
+    # expr = "\mathbb{R}"
+    # expr = expr + "$\displaystyle" + expr + "$"
+    # f = BytesIO()
+    # preview(expr,viewer = "BytesIO", output = "ps",preamble = r"\documentclass{standalone}"
+    #                r"\usepackage{pagecolor}"
+    #                r"\begin{document}"
+    #                r"\setmainfont{Times New Roman}", outputbuffer=f)
+    # f.seek(0)
+    #
+    # img = Image.open(f)
+    # img.load(scale = 10)
+    # img = img.resize((int(img.size[0] / 2), int(img.size[1] / 2)), Image.BILINEAR)
+    # f.close()
