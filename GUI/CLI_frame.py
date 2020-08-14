@@ -60,12 +60,12 @@ class CLI(ScrollableFrame):
         main_label, sublabels_and_info = self.controller.queue.get()
         print(main_label)
         print(sublabels_and_info)
-        if main_label == "Input":
+        if main_label.split("(")[0] == "Input":
             new_frame = InputFrame(self.frame, main_label, sublabels_and_info)
             new_frame.grid(row=self.num_rows, column=0, sticky="W")
             self.num_rows += 1
             self.information.append(new_frame)
-        if main_label == "plot":
+        if main_label.split("(")[0] == "plot":
             new_frame = InputPlotFrame(self.frame, main_label, sublabels_and_info)
             new_frame.grid(row=self.num_rows, column=0, sticky="W")
             self.num_rows += 1
