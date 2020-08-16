@@ -1,5 +1,6 @@
 from src.FunctionManager import FunctionManager
 from src.Plot import Plot
+from src.Calculus import Calculus
 class Command():
     """
     Factory Object that manages the creation of DataManager Objects, i.e. FunctionManager
@@ -21,7 +22,7 @@ class Command():
         # 'Static dictionary for the valid input classes inside the command given
         # In the future should be replaced by a database
         self.commands_dict = {'plot': ['FunctionManager'], 'IFS': ['FunctionManager', 'MarkovChain'], \
-                              'zeros' : ['FunctionManager'], 'derivative': ['FunctionManager'], 'integral' : ['FunctionManager'],\
+                              'zeroes' : ['FunctionManager'], 'derivative': ['FunctionManager'], 'integral' : ['FunctionManager'],\
                               'partialderivative' : ['FunctionManager'], 'partialintegral': ['FunctionManager']}
         self.input_types = []
 
@@ -44,6 +45,13 @@ class Command():
                     figures = plot.run()
                     for f in figures:
                         output.append((None, f))
+        if self.command == "zeroes":
+            for math in self.math_objects:
+                if isinstance(math, FunctionManager):
+                    calc = Calculus(math)
+                    zeroes = calc.zeroes()
+                    for z in zeroes:
+                        output.append((z[0], z[1]))
         return main_label, output
 
     def process_input(self, command_str):

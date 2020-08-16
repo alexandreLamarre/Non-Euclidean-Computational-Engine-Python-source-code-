@@ -70,6 +70,12 @@ class CLI(ScrollableFrame):
             new_frame.grid(row=self.num_rows, column=0, sticky="W")
             self.num_rows += 1
             self.information.append(new_frame)
+        if main_label.split("(")[0] == "zeroes":
+            print(sublabels_and_info)
+            new_frame = InputPlotFrame(self.frame, main_label, sublabels_and_info)
+            new_frame.grid(row=self.num_rows, column=0, sticky="W")
+            self.num_rows += 1
+            self.information.append(new_frame)
 
     # def run_command(self):
     #     if self.information != []:

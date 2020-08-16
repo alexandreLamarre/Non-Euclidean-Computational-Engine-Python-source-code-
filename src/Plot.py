@@ -60,6 +60,7 @@ class Plot:
         ys = np.array(ys)
 
         ax = figure.add_subplot()#grid[y_grid_number:,:])
+        ax.clear()
         ax.set_xlabel("{}".format(function.str_vars[0]), fontsize="8")
         ax.set_ylabel("{}({})".format(function.name, function.str_vars[0]), fontsize="8", rotation = "horizontal")
         ax.set_title("{}".format(function.info_string))
@@ -87,6 +88,7 @@ class Plot:
         zs = np.nan_to_num(zs)
         xs, ys = np.meshgrid(xs, ys)
         ax = figure.add_subplot(projection = "3d")#grid[y_grid:, :], projection="3d")
+        ax.clear()
         ax.set_title("{}".format(function.info_string))
         ax.plot_surface(xs, ys, zs, cmap=cm.get_cmap("Spectral"), antialiased=True)
 
@@ -114,6 +116,7 @@ class Plot:
 
 
         ax = figure.add_subplot(projection = "3d")#grid[y_grid,x_grid], projection="3d")
+        ax.clear()
         ax.set_title("{}".format(function.info_string))
         ax.plot_surface(xs,ys,zs, cmap = cm.get_cmap("Spectral"), antialiased = True)
 
@@ -125,7 +128,7 @@ class Plot:
         total_ys = np.array([])
         total_contours = np.array([])
         for r in range(1,number_of_contours):
-            num = 50
+            num = 10
             angles = np.linspace(0,2*np.pi,num)
             print(angles)
             # euclidean_norm = []
@@ -157,20 +160,25 @@ class Plot:
             print(len(new_xs))
             new_ys = np.array(new_ys)
 
-            # new_xs, new_ys = np.meshgrid(new_xs,new_ys)
             contour_map_values = np.linspace(r,r,num*num)#*2500)
-            plt.plot(new_xs, new_ys, contour_map_values)
             # contour_map_values = contour_map_values.reshape(2500,2500)
-            print(contour_map_values)
 
+            # print(contour_map_values)
+            # ax = figure.add_subplot(projection="3d")
+            # ax.clear()
+            # ax.set_title("{}".format(function.info_string), font="Times")
+            # ax.plot_wireframe(new_xs, new_ys, contour_map_values)
             # must be a better way than this #TODO Runtime here is very very bad
             total_xs = np.append(total_xs, new_xs)
             total_ys = np.append(total_ys,new_ys)
             total_contours = np.append(total_contours, contour_map_values)
-
+            print(len(total_xs))
+            print(len(total_ys))
+            print(len(total_contours))
         ax = figure.add_subplot(projection = "3d")
+        ax.clear()
         ax.set_title("{}".format(function.info_string), font = "Times")
-        plt.plot(total_xs, total_ys, total_contours)
+        ax.plot(total_xs, total_ys, total_contours)
 
 
         # ax = figure.add_subplot(projection="3d")  # grid[y_grid,x_grid], projection="3d" )
@@ -179,6 +187,6 @@ class Plot:
 
 if __name__ == "__main__":
     # fm = FunctionManager("f(x,y) = (x**2 + 1/y) g(y) = (y**2, y**3) f(k) = (log(k))")
-    fm = FunctionManager("f(x) = (exp(x)/exp(2*x) , cos(x)) g(x,y) = (x**2/(log(y)))")
+    fm = FunctionManager("f(x,y) = (x**2, 1/y)")
     p = Plot(fm)
     p.run()

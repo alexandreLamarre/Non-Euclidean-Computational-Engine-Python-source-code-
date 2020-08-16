@@ -67,13 +67,15 @@ class Calculus(OutputQueue, ErrorStack):
                 range_function_var_root_tuple = (
                 self.Functions[i].str_funcs[0], function_root_list)
                 all_range_functions_root_list.append(range_function_var_root_tuple)
-            function_root_tuple = (self.Functions[i].name, all_range_functions_root_list)
+            function_root_tuple = (self.Functions[i].info_string, all_range_functions_root_list)
             output_list.append(function_root_tuple)
         return output_list
 
 
 
     def derivative(self):
+        ## should be a matrix of size rows = num range functions
+        ##                         columns = num vars
         pass
 
     def integral(self):
@@ -112,11 +114,14 @@ class Calculus(OutputQueue, ErrorStack):
                 range_function_var_root_tuple = (
                     self.Functions[i].str_funcs[0], function_root_list)
                 all_range_functions_root_list.append(range_function_var_root_tuple)
-            function_root_tuple = (self.Functions[i].name, all_range_functions_root_list)
+            function_root_tuple = (self.Functions[i].info_string, all_range_functions_root_list)
             output_list.append(function_root_tuple)
         return output_list
 
     def second_order_partials(self):
+        pass
+
+    def specific_partials(self, partial_list):
         pass
 
     def partial_integrals(self):
@@ -149,7 +154,7 @@ class Calculus(OutputQueue, ErrorStack):
                 range_function_var_root_tuple = (
                     self.Functions[i].str_funcs[0], function_root_list)
                 all_range_functions_root_list.append(range_function_var_root_tuple)
-            function_root_tuple = (self.Functions[i].name, all_range_functions_root_list)
+            function_root_tuple = (self.Functions[i].info_string, all_range_functions_root_list)
             output_list.append(function_root_tuple)
         return output_list
 
